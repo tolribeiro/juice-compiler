@@ -1,6 +1,7 @@
 package parser;
 
 
+
 /**
  * This class contains codes for each grammar terminal
  * @version 2010-september-04
@@ -26,4 +27,6 @@ public class GrammarSymbols {
 	public static final int BOOL = 24;
 	public static final int IF = 25; 
 	public static final int PRINT = 26;
+	public static final int ELSE = 27;
+	public static final int RETURN = 28;
 }

@@ -1,10 +1,9 @@
 package scanner;
 
-import compiler.Properties;
-import compiler.Compiler;
-
 import parser.GrammarSymbols;
 import util.Arquivo;
+
+import compiler.Properties;
 
 /**
  * Scanner class
@@ -226,6 +225,12 @@ public class Scanner {
 				} else if (currentChar == '*' || currentChar == '/') {
 					state = 9;
 					getNextChar();
+				} else if (currentChar == '>') {
+					state = 12;
+					getNextChar();
+				} else if(currentChar == '<') {
+					state = 13;
+					getNextChar();
 				} else if (isLetter(currentChar)) {
 					state = 10;
 					getNextChar();
@@ -234,9 +239,7 @@ public class Scanner {
 					getNextChar();
 				} else if(currentChar == '\000') {
 					state = 98;
-				} else {
-					state = 99;
-				}
+				} 
 				break;
 			case 1:
 				return GrammarSymbols.OP;
@@ -251,6 +254,7 @@ public class Scanner {
 				} else {
 					return GrammarSymbols.ASG;
 				}
+				break;
 			case 5:
 				return GrammarSymbols.OB;
 			case 6:
@@ -287,9 +291,9 @@ public class Scanner {
 				} else if (spelling.equals("if")) {
 					return GrammarSymbols.IF;
 				} else if (spelling.equals("else")) {
-					return GrammarSymbols.TRUE;
+					return GrammarSymbols.ELSE;
 				} else if (spelling.equals("return")) {
-					return GrammarSymbols.TRUE;
+					return GrammarSymbols.RETURN;
 				} else if (spelling.equals("printf")) {
 					return GrammarSymbols.PRINT;
 				} else {
@@ -297,32 +301,25 @@ public class Scanner {
 				}
 			case 11:
 				return GrammarSymbols.BOOL_OPERATOR;
-			case 12:
-				if (currentChar == '>') {
-					state = 4;
+			case 12: 
+				if (currentChar == '=') {
+					state = 11;
 					getNextChar();
 				} else {
 					return GrammarSymbols.GT;
 				}
 			case 13:
-				if (currentChar == '<') {
-					state = 4;
+				if (currentChar == '=') {
+					state = 11;
 					getNextChar();
 				} else {
 					return GrammarSymbols.LT;
-				}
-			case 14:
-				if (currentChar == '!') {
-					state = 4;
-					getNextChar();
-				} else {
-					state = 99;
 				}
 			case 15:
 				while (isDigit(currentChar)) {
 					getNextChar();
 				}
-				return GrammarSymbols.D;
+				return GrammarSymbols.NUMBER;
 			case 99:
 				throw new LexicalException("Character not expected.", currentChar, line, column);
 			}
