@@ -83,43 +83,43 @@ public class Token {
 				tokenType = "EOT";
 				break;
 			case 16:
-				tokenType = "int";
+				tokenType = "INT";
 				break;
 			case 17:
-				tokenType = "void";
+				tokenType = "VOID";
 				break;
-			case 18:
-				tokenType = "main";
-				break;
+//			case 18:
+//				tokenType = "main";
+//				break;
 			case 19:
-				tokenType = "true";
+				tokenType = "TRUE";
 				break;
 			case 20:
-				tokenType = "false";
+				tokenType = "FALSE";
 				break;
 			case 21:
-				tokenType = "break";
+				tokenType = "BREAK";
 				break;
 			case 22:
-				tokenType = "continue";
+				tokenType = "CONTINUE";
 				break;
 			case 23:
-				tokenType = "while";
+				tokenType = "WHILE";
 				break;
 			case 24:
-				tokenType = "bool";
+				tokenType = "BOOL";
 				break;
 			case 25:
-				tokenType = "if";
+				tokenType = "IF";
 				break;
 			case 26:
-				tokenType = "printf";
+				tokenType = "PRINTF";
 				break;
 			case 27:
-				tokenType = "else";
+				tokenType = "ELSE";
 				break;
 			case 28:
-				tokenType = "return";
+				tokenType = "RETURN";
 				break;
 			}
 		

@@ -216,20 +216,23 @@ public class Scanner {
 				} else if (currentChar == ',') {
 					state = 7;
 					getNextChar();
-				} else if (currentChar == '+' || currentChar == '-') {
+				} else if (currentChar == '+') {
 					state = 8;
 					getNextChar();
-				} else if (currentChar == '+' || currentChar == '-') {
-					state = 8;
+				} else if (currentChar == '-') {
+					state = 36;
 					getNextChar();
-				} else if (currentChar == '*' || currentChar == '/') {
-					state = 9;
+				} else if (currentChar == '*') {
+					state = 39;
 					getNextChar();
 				} else if (currentChar == '>') {
 					state = 12;
 					getNextChar();
 				} else if(currentChar == '<') {
 					state = 13;
+					getNextChar();
+				} else if(currentChar == '!') {
+					state = 14;
 					getNextChar();
 				} else if (isLetter(currentChar)) {
 					state = 10;
@@ -239,7 +242,9 @@ public class Scanner {
 					getNextChar();
 				} else if(currentChar == '\000') {
 					state = 98;
-				} 
+				} else {
+					state = 99;
+				}
 				break;
 			case 1:
 				return GrammarSymbols.OP;
@@ -249,12 +254,14 @@ public class Scanner {
 				return GrammarSymbols.SC;
 			case 4:
 				if (currentChar == '=') {
-					state = 11;
+					state = 30;
 					getNextChar();
 				} else {
 					return GrammarSymbols.ASG;
 				}
 				break;
+			case 30:
+				return GrammarSymbols.EQ;
 			case 5:
 				return GrammarSymbols.OB;
 			case 6:
@@ -262,7 +269,13 @@ public class Scanner {
 			case 7:
 				return GrammarSymbols.C;
 			case 8:
-				return GrammarSymbols.ARIT_OPERATOR;
+				return GrammarSymbols.ADD;
+			case 36:
+				return GrammarSymbols.SUB;
+			case 39:
+				return GrammarSymbols.MULT;
+			case 40:
+				return GrammarSymbols.DIV;
 			case 9:
 				return GrammarSymbols.MULT_OPERATOR;
 			case 10:
@@ -274,8 +287,8 @@ public class Scanner {
 					return GrammarSymbols.INT;
 				} else if (spelling.equals("void")) {
 					return GrammarSymbols.VOID;
-				} else if (spelling.equals("main")) {
-					return GrammarSymbols.MAIN;
+//				} else if (spelling.equals("main")) {
+//					return GrammarSymbols.MAIN;
 				} else if (spelling.equals("true")) {
 					return GrammarSymbols.TRUE;
 				} else if (spelling.equals("false")) {
@@ -303,18 +316,34 @@ public class Scanner {
 				return GrammarSymbols.BOOL_OPERATOR;
 			case 12: 
 				if (currentChar == '=') {
-					state = 11;
+					state = 31;
 					getNextChar();
 				} else {
 					return GrammarSymbols.GT;
 				}
+				break;
+			case 31:
+				return GrammarSymbols.GE;
 			case 13:
 				if (currentChar == '=') {
-					state = 11;
+					state = 32;
 					getNextChar();
 				} else {
 					return GrammarSymbols.LT;
 				}
+				break;
+			case 32:
+				return GrammarSymbols.LE;
+			case 14:
+				if (currentChar == '=') {
+					state = 33;
+					getNextChar();
+				} else {
+					state = 99;
+				}
+				break;
+			case 33:
+				return GrammarSymbols.NE;
 			case 15:
 				while (isDigit(currentChar)) {
 					getNextChar();
