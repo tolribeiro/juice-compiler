@@ -3,22 +3,6 @@ package parser;
 import scanner.Scanner;
 import scanner.Token;
 import util.AST.AST;
-import util.AST.AritExpression;
-import util.AST.AritOperator;
-import util.AST.Assignment;
-import util.AST.Boolean;
-import util.AST.BoolOperator;
-import util.AST.Command;
-import util.AST.Declaration;
-import util.AST.Digit;
-import util.AST.Expression;
-import util.AST.Factor;
-import util.AST.Function;
-import util.AST.ID;
-import util.AST.MultExpression;
-import util.AST.ParamTypes;
-import util.AST.Program;
-import util.AST.Type;
 
 /**
  * Parser class
