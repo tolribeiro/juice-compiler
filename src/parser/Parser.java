@@ -124,11 +124,11 @@ public class Parser {
 			if (currentToken.getKind() == GrammarSymbols.SC) {
 				acceptIt();
 			} else {
-				while (currentToken.getKind() != GrammarSymbols.SC) {
-					parseExpression();
-				}
+				parseExpression();
+				accept(GrammarSymbols.SC);
 			}
 		} else if (currentToken.getKind() == GrammarSymbols.ID) {
+			acceptIt();
 			if (currentToken.getKind() == GrammarSymbols.ASG) {
 				acceptIt();
 				parseExpression();
@@ -143,6 +143,12 @@ public class Parser {
 						parseExpression();
 					}
 				}
+			} else {
+				accept(GrammarSymbols.PRINT);
+				accept(GrammarSymbols.OP);
+				parseExpression();
+				accept(GrammarSymbols.CP);
+				accept(GrammarSymbols.SC);
 			}
 		} else if (currentToken.getKind() == GrammarSymbols.INT
 				|| currentToken.getKind() == GrammarSymbols.BOOL) {
@@ -219,10 +225,10 @@ public class Parser {
 	}
 
 	private void parseArgumentList() throws SyntacticException {
-			parseExpression();
-			while (currentToken.getKind() != GrammarSymbols.CP) {
-				accept(GrammarSymbols.SC);
-			}
+		parseExpression();
+		while (currentToken.getKind() != GrammarSymbols.CP) {
+			accept(GrammarSymbols.SC);
+		}
 	}
 
 	/**
