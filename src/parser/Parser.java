@@ -1,8 +1,14 @@
 package parser;
 
+import java.util.ArrayList;
+
 import scanner.Scanner;
 import scanner.Token;
 import util.AST.AST;
+import util.AST.Command;
+import util.AST.Function;
+import util.AST.Program;
+import util.AST.Variable;
 
 /**
  * Parser class
@@ -34,31 +40,41 @@ public class Parser {
 	 */
 	// TODO
 	public AST parse() throws SyntacticException {
-		return null;
+		return parseProgram();
 	}
 
-	private void parseProgram() throws SyntacticException {
+	private Program parseProgram() throws SyntacticException {
+		ArrayList<Function> functions = new ArrayList<Function>();
+		ArrayList<Variable> globals = new ArrayList<Variable>();
+		Program p = new Program(functions, globals);
 		while (currentToken.getKind() != GrammarSymbols.EOT) {
 			if (currentToken.getKind() == GrammarSymbols.VOID) {
+				String type = currentToken.getSpelling();
 				acceptIt();
+				String id = currentToken.getSpelling();
 				accept(GrammarSymbols.ID);
-				parseFunction();
+				functions.add(parseFunction(type, id));
 			} else if (currentToken.getKind() == GrammarSymbols.INT
 					|| currentToken.getKind() == GrammarSymbols.BOOL) {
+				String type = currentToken.getSpelling();
 				acceptIt();
+				String id = currentToken.getSpelling();
 				accept(GrammarSymbols.ID);
 				if (currentToken.getKind() == GrammarSymbols.SC) {
 					acceptIt();
-					accept(GrammarSymbols.SC);
+					globals.add(new Variable(type, id));
 				} else {
-					parseFunction();
+					functions.add(parseFunction(type, id));
 				}
 			}
 		}
-
+		return p;
 	}
 
-	private void parseFunction() throws SyntacticException {
+	private Function parseFunction(String type, String id) throws SyntacticException {
+		ArrayList<Variable> parameters = new ArrayList<Variable>();
+		ArrayList<Command> commands = new ArrayList<Command>();
+		Function function = new Function(parameters, commands, type, id);
 		if (currentToken.getKind() == GrammarSymbols.OP) {
 			acceptIt();
 			if (currentToken.getKind() == GrammarSymbols.CP) {
@@ -73,6 +89,7 @@ public class Parser {
 			}
 			acceptIt(); // Quando chegar nesse ponto, já vai ser CB
 		}
+		return function;
 	}
 
 	private void parseParamTypes() throws SyntacticException {
@@ -101,6 +118,7 @@ public class Parser {
 			while (currentToken.getKind() != GrammarSymbols.CB) {
 				parseCommand();
 			}
+			accept(GrammarSymbols.CB);
 			if (currentToken.getKind() == GrammarSymbols.ELSE) {
 				acceptIt();
 				accept(GrammarSymbols.OB);
@@ -188,6 +206,7 @@ public class Parser {
 		while (currentToken.getKind() == GrammarSymbols.ADD
 				|| currentToken.getKind() == GrammarSymbols.SUB) {
 			acceptIt();
+			parseMultExpression();
 		}
 	}
 
@@ -251,11 +270,13 @@ public class Parser {
 	 */
 	// TODO
 	private void acceptIt() {
+		System.out.println(currentToken.getSpelling());
 		currentToken = scanner.getNextToken();
 	}
 
 	public static void main(String[] args) throws SyntacticException {
 		Parser test = new Parser();
-		test.parseProgram();
+		AST program = test.parseProgram();
+		System.out.println("done");
 	}
 }

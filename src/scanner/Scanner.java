@@ -54,7 +54,12 @@ public class Scanner {
 				scanSeparator();
 			}
 			currentSpelling = new StringBuffer("");
-			currentKind = scanToken();
+			if (this.file.isEndOfFile()) {
+				//this.currentChar = '\000';
+				currentKind = GrammarSymbols.EOT;
+			} else {
+				currentKind = scanToken();
+			}
 		} catch (LexicalException exception) {
 			System.err.println(exception.toString());
 			System.exit(0);
@@ -105,7 +110,7 @@ public class Scanner {
 		// Appends the current char to the string buffer
 		this.currentSpelling.append(this.currentChar);
 		// Reads the next one
-		this.currentChar = this.file.readChar();
+		this.currentChar = this.file.readChar();	
 		// Increments the line and column
 		this.incrementLineColumn();
 	}
@@ -349,6 +354,8 @@ public class Scanner {
 					getNextChar();
 				}
 				return GrammarSymbols.NUMBER;
+			case 98:
+				return GrammarSymbols.EOT;
 			case 99:
 				throw new LexicalException("Character not expected.", currentChar, line, column);
 			}

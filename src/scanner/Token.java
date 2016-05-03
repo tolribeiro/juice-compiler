@@ -121,6 +121,29 @@ public class Token {
 			case 28:
 				tokenType = "RETURN";
 				break;
+			case 30:
+				tokenType = "EQ";
+				break;
+			case 31:
+				tokenType = "GE";
+				break;
+			case 32:
+				tokenType = "LE";
+				break;
+			case 33:
+				tokenType = "NE";
+				break;
+			case 34:
+				tokenType = "ADD";
+				break;
+			case 35:
+				tokenType = "SUB";
+				break;
+			case 39:
+				tokenType = "MULT";
+				break;
+			case 40:
+				tokenType = "DIV";
 			}
 		
 		return "Token: " + tokenType + ", " + spelling + " [" + getLine() + ":" + getColumn() + "]";
