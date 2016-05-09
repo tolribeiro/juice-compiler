@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import scanner.Scanner;
 import scanner.Token;
 import util.AST.AST;
+import util.AST.Break;
 import util.AST.Command;
+import util.AST.Expression;
+import util.AST.Factor;
 import util.AST.Function;
 import util.AST.Program;
 import util.AST.Variable;
@@ -86,7 +89,7 @@ public class Parser {
 			while (currentToken.getKind() != GrammarSymbols.CB) {
 				// TODO
 				// commands = parseCommands() returns commands list.
-				parseCommand();
+				commands = parseCommand();
 			}
 			acceptIt(); // Quando chegar nesse ponto, já vai ser CB
 		}
@@ -118,7 +121,8 @@ public class Parser {
 		return variables;
 	}
 
-	private void parseCommand() throws SyntacticException {
+	private ArrayList<Command> parseCommand() throws SyntacticException {
+		ArrayList<Command> commands = null;
 		if (currentToken.getKind() == GrammarSymbols.IF) {
 			acceptIt();
 			accept(GrammarSymbols.OP);
@@ -196,10 +200,12 @@ public class Parser {
 			accept(GrammarSymbols.CP);
 			accept(GrammarSymbols.SC);
 		}
+		return null;
 	}
 
-	private void parseExpression() throws SyntacticException {
-		parseAritExpression();
+	private Expression parseExpression() throws SyntacticException {
+		Expression e = null;
+		e = parseAritExpression();
 		if (currentToken.getKind() == GrammarSymbols.EQ
 				|| currentToken.getKind() == GrammarSymbols.NE
 				|| currentToken.getKind() == GrammarSymbols.GT
@@ -209,27 +215,34 @@ public class Parser {
 			acceptIt();
 			parseAritExpression();
 		}
+		return e;
 	}
 
-	private void parseAritExpression() throws SyntacticException {
-		parseMultExpression();
+	private Expression parseAritExpression() throws SyntacticException {
+		Expression e = null;
+		e = parseMultExpression();
 		while (currentToken.getKind() == GrammarSymbols.ADD
 				|| currentToken.getKind() == GrammarSymbols.SUB) {
 			acceptIt();
-			parseMultExpression();
+			e = parseMultExpression();
 		}
+		return e;
 	}
 
-	private void parseMultExpression() throws SyntacticException {
-		parseFactor();
+	private Expression parseMultExpression() throws SyntacticException {
+		Expression e = null;
+		Factor f = null;
+		f = parseFactor();
 		while (currentToken.getKind() == GrammarSymbols.MULT
 				|| currentToken.getKind() == GrammarSymbols.DIV) {
 			acceptIt();
-			parseFactor();
+			f = parseFactor();
 		}
+		return e;
 	}
 
-	private void parseFactor() throws SyntacticException {
+	private Factor parseFactor() throws SyntacticException {
+		Factor f = null;
 		if (currentToken.getKind() == GrammarSymbols.ID) {
 			acceptIt();
 			if (currentToken.getKind() == GrammarSymbols.OP) {
@@ -251,6 +264,7 @@ public class Parser {
 			parseExpression();
 			accept(GrammarSymbols.CP);
 		}
+		return null;
 	}
 
 	private void parseArgumentList() throws SyntacticException {

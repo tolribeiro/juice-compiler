@@ -26,4 +26,5 @@ public class Factor extends AST {
 		return null;
 	}
 	
+	
 }
