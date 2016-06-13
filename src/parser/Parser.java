@@ -219,13 +219,42 @@ public class Parser {
 	}
 
 	private Expression parseAritExpression() throws SyntacticException {
-		Expression e = null;
-		e = parseMultExpression();
+		Expression e = new Expression(); // crio uma expressão de qualquer tipo
+		e.setLeft(parseMultExpression()); // coloco a expressão da direita
+		// lembre-se que Expression representa um expressão de dois elementos então esse ela
+		// deve ser modificada para se aquequar com esse loop
 		while (currentToken.getKind() == GrammarSymbols.ADD
 				|| currentToken.getKind() == GrammarSymbols.SUB) {
+			e.setOperator(currentToken.getSpelling()); // atribuo o operador
 			acceptIt();
-			e = parseMultExpression();
+			e.setRight(parseMultExpression()); // atribuo a expressão da direita
+			
+			// com as modificações os metodos ficariam como
+			// e.addOperator(currentToken.getSpelling());
+			// e.addExpressions(parseMultExpression()); // tabem se repete para a linha 223
 		}
+		
+		/*
+		public class Expression extends Factor {
+			ArrayList<Expression> expressions;
+			ArrayList<String> operators;
+			
+			public Expression () {
+				expressions = new ArrayList<Expression>();
+				operators = new ArrayList<String>();
+			}
+			
+			public void addOperator(String operator) {
+				operators.add(operator);
+			}
+			
+			public void addExpressions (Expression expression) {
+				expressions.add(expression);
+			}
+		*/
+		
+		// o mesmo pode ser feito para o parseMultExpression
+		
 		return e;
 	}
 
