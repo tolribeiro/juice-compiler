@@ -21,7 +21,29 @@ public class Function extends  AST {
 	@Override
 	public String toString(int level) {
 		// TODO Auto-generated method stub
-		return null;
+		StringBuffer paramTypes = new StringBuffer();
+		
+		paramTypes.append(type);
+		paramTypes.append(" ");
+		paramTypes.append(id);
+		paramTypes.append("(");
+		if (parameters != null) {
+			for (int i = 0; i < parameters.size(); i++) {
+				paramTypes.append(parameters.get(i).toString(0));
+				if (i+1 != parameters.size()) paramTypes.append(",");
+			}
+		}
+		paramTypes.append(")");
+		paramTypes.append("{\n");
+		if (commands != null) {
+			for (int i = 0; i < commands.size(); i++) {
+				paramTypes.append(commands.get(i).toString(level+1));
+				paramTypes.append(";\n");
+			}
+		}
+		paramTypes.append("}");
+		
+		return paramTypes.toString();
 	}
 
 }

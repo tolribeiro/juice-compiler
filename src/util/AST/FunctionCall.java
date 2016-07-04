@@ -3,13 +3,19 @@ package util.AST;
 import java.util.ArrayList;
 
 public class FunctionCall extends Command {
-	String id;
-	ArrayList<Factor> factors;
+	public String id;
+	public ArrayList<AST> parameters;
 	
-	public FunctionCall(String id, ArrayList<Factor> factors) {
+	public FunctionCall(String id) {
 		super();
 		this.id = id;
-		this.factors = factors;
+		this.parameters = null;
+	}
+	
+	public FunctionCall(String id, ArrayList<AST> factors) {
+		super();
+		this.id = id;
+		this.parameters = factors;
 	}
 
 	@Override

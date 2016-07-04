@@ -1,8 +1,14 @@
 package scanner;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.UUID;
+
 import parser.GrammarSymbols;
 import util.Arquivo;
-
 import compiler.Properties;
 
 /**
@@ -28,9 +34,32 @@ public class Scanner {
 
 	/**
 	 * Default constructor
+	 * @throws IOException 
 	 */
-	public Scanner() {
-		this.file = new Arquivo(Properties.sourceCodeLocation);
+	public Scanner(String in) {
+		try {
+			File temp = File.createTempFile(UUID.randomUUID().toString(), ".tmp");
+			FileWriter writer = new FileWriter(temp);
+			try (BufferedReader br = new BufferedReader(new FileReader(in))) {
+			    String line;
+			    while ((line = br.readLine()) != null) {
+			       int i = line.indexOf("//");
+			       if (i == -1) {
+			    	   writer.write(line);
+			       } else {
+			    	   writer.write(line.substring(0, i));
+			       }
+			       writer.write("\n");
+			    }
+			}
+			writer.close();
+			
+			this.file = new Arquivo(temp.getAbsolutePath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.line = 0;
 		this.column = 0;
 		this.currentChar = this.file.readChar();
@@ -50,14 +79,14 @@ public class Scanner {
 		// Creates and returns a token for the lexema identified
 		currentSpelling = new StringBuffer("");
 		try {
-			while (isSeparator(currentChar)) {
-				scanSeparator();
-			}
-			currentSpelling = new StringBuffer("");
 			if (this.file.isEndOfFile()) {
 				//this.currentChar = '\000';
 				currentKind = GrammarSymbols.EOT;
 			} else {
+				while (isSeparator(currentChar)) {
+					scanSeparator();
+				}
+				currentSpelling = new StringBuffer("");
 				currentKind = scanToken();
 			}
 		} catch (LexicalException exception) {

@@ -10,4 +10,8 @@ public class Assignment extends Command{
 		this.id = id;
 	}
 	
+	@Override
+	public String toString(int level) {
+		return id + " = " + expression.toString(0);
+	}
 }

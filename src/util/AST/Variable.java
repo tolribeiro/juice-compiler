@@ -1,8 +1,10 @@
 package util.AST;
 
+import checker.IVisitor;
+
 public class Variable extends Command {
-	String type;
-	String id;
+	public String type;
+	public String id;
 	
 	public Variable(String type, String id) {
 		super();
@@ -13,7 +15,6 @@ public class Variable extends Command {
 	@Override
 	public String toString(int level) {
 		// TODO Auto-generated method stub
-		return null;
+		return type + " " + id;
 	}
-
 }

@@ -1,21 +1,13 @@
 package util.AST;
 
-public class Expression extends Factor {
+public class Expression extends AST {
 
-	Expression left, right;
-	String operator;
+	public AST left, right;
+	public String operator;
 	
 	@Override
 	public String toString(int level) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	public Expression(String id, Expression left, Expression right,
-			String operator) {
-		super(id);
-		this.left = left;
-		this.right = right;
-		this.operator = operator;
 	}
 }

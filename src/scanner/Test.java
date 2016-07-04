@@ -8,7 +8,7 @@ import parser.GrammarSymbols;
 public class Test {
 	public static void main(String[] args)
 	{
-		Scanner s = new Scanner();
+		Scanner s = new Scanner(args[0]);
 		Token a;
 		do {
 			a = s.getNextToken();

@@ -26,7 +26,7 @@ public class Compiler {
 		Compiler.initIdentificationTable();
 		
 		// Creates the parser object
-		Parser p = new Parser();
+		Parser p = new Parser(args[0]);
 		
 		// Creates the AST object
 		AST astRoot = null;

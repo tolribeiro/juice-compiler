@@ -1,6 +1,6 @@
 package util.AST;
 
-public class Factor extends AST {
+public class Factor extends Expression {
 	String id;
 	int number;
 	boolean bool;
@@ -25,6 +25,4 @@ public class Factor extends AST {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 }
