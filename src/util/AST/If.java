@@ -29,6 +29,16 @@ public class If extends Command {
 		for	(int i = 0; i < then.size(); ++i) {
 			ifCommand.append("\t");
 			ifCommand.append(then.get(i).toString(level+1));
+			ifCommand.append("\n");
+		}
+		
+		if (otherwise != null) {
+			ifCommand.append("\t} else {\n");
+			
+			for	(int i = 0; i < otherwise.size(); ++i) {
+				ifCommand.append("\t\t");
+				ifCommand.append(otherwise.get(i).toString(level+1));
+			}
 		}
 		
 		ifCommand.append("\n");
