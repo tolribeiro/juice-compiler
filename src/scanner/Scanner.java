@@ -321,8 +321,6 @@ public class Scanner {
 					return GrammarSymbols.INT;
 				} else if (spelling.equals("void")) {
 					return GrammarSymbols.VOID;
-//				} else if (spelling.equals("main")) {
-//					return GrammarSymbols.MAIN;
 				} else if (spelling.equals("true")) {
 					return GrammarSymbols.TRUE;
 				} else if (spelling.equals("false")) {

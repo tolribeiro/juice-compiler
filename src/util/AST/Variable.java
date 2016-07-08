@@ -1,6 +1,5 @@
 package util.AST;
 
-import checker.IVisitor;
 
 public class Variable extends Command {
 	public String type;

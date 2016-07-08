@@ -3,7 +3,6 @@ package parser;
 import java.util.ArrayList;
 
 import compiler.Properties;
-
 import scanner.Scanner;
 import scanner.Token;
 import util.AST.*;
@@ -201,8 +200,14 @@ public class Parser {
 			acceptIt();
 			String id = currentToken.getSpelling();
 			accept(GrammarSymbols.ID);
-			accept(GrammarSymbols.SC);
-			return new Variable(type, id);
+			if (currentToken.getKind() == GrammarSymbols.SC) {
+				acceptIt();
+				return new Declaration(new Variable(type, id));
+			} else {
+				return new Variable(type, id);
+			}
+//			accept(GrammarSymbols.SC);
+//			return new Variable(type, id);
 		} else if (currentToken.getKind() == GrammarSymbols.BREAK) {
 			acceptIt();
 			accept(GrammarSymbols.SC);
@@ -292,17 +297,17 @@ public class Parser {
 				}
 				return call;
 			}
-			return new Factor(id);
+			return new Factor(id, null, null);
 		} else if (currentToken.getKind() == GrammarSymbols.NUMBER) {
-			Factor factor = new Factor(Integer.parseInt(currentToken.getSpelling()));
+			Factor factor = new Factor(null, currentToken.getSpelling(), null);
 			acceptIt();
 			return factor;
 		} else if (currentToken.getKind() == GrammarSymbols.TRUE) {
-			Factor factor = new Factor(true);
+			Factor factor = new Factor(null, null, "true");
 			acceptIt();
 			return factor;
 		} else if (currentToken.getKind() == GrammarSymbols.FALSE) {
-			Factor factor = new Factor(false);
+			Factor factor = new Factor(null, null, "false");
 			acceptIt();
 			return factor;
 		} else {

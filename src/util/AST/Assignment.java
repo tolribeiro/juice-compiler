@@ -12,6 +12,6 @@ public class Assignment extends Command{
 	
 	@Override
 	public String toString(int level) {
-		return id + " = " + expression.toString(0);
+		return id + " = " + expression.toString(0)+";";
 	}
 }

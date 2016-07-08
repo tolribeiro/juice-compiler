@@ -37,8 +37,9 @@ public class Function extends  AST {
 		paramTypes.append("{\n");
 		if (commands != null) {
 			for (int i = 0; i < commands.size(); i++) {
+				paramTypes.append("\t");
 				paramTypes.append(commands.get(i).toString(level+1));
-				paramTypes.append(";\n");
+				paramTypes.append("\n");
 			}
 		}
 		paramTypes.append("}");

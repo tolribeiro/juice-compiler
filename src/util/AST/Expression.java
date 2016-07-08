@@ -8,6 +8,13 @@ public class Expression extends AST {
 	@Override
 	public String toString(int level) {
 		// TODO Auto-generated method stub
-		return null;
+		StringBuffer expression = new StringBuffer();
+		expression.append(left.toString(0));
+		expression.append(" ");
+		expression.append(operator);
+		expression.append(" ");
+		expression.append(right.toString(0));
+		
+		return expression.toString();
 	}
 }

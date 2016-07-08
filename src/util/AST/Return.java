@@ -8,4 +8,18 @@ public class Return extends Command{
 		this.expression = expression;
 	}
 	
+	@Override
+	public String toString(int level) {
+		StringBuffer returnC = new StringBuffer();
+		
+		returnC.append("return ");
+		
+		if (expression != null) {
+			returnC.append(expression.toString(0));
+		}
+		
+		returnC.append(";");
+		
+		return returnC.toString();
+	}
 }
