@@ -2,6 +2,9 @@ package util.AST;
 
 import java.util.ArrayList;
 
+import checker.SemanticException;
+import checker.Visitor;
+
 public class Function extends  AST {
 
 	ArrayList<Variable> parameters;
@@ -45,6 +48,42 @@ public class Function extends  AST {
 		paramTypes.append("}");
 		
 		return paramTypes.toString();
+	}
+
+	public ArrayList<Variable> getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(ArrayList<Variable> parameters) {
+		this.parameters = parameters;
+	}
+
+	public ArrayList<Command> getCommands() {
+		return this.commands;
+	}
+
+	public void setCommands(ArrayList<Command> commands) {
+		this.commands = commands;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Object visit(Visitor vi, ArrayList<AST> list) throws SemanticException {
+		return vi.visitFunction(this, list);
 	}
 
 }

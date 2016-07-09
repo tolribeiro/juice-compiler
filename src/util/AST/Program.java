@@ -2,8 +2,11 @@ package util.AST;
 
 import java.util.ArrayList;
 
+import checker.SemanticException;
+import checker.Visitor;
+
 public class Program extends AST{
-	
+
 	ArrayList<Function> functions;
 	ArrayList<Variable> globals;
 	
@@ -33,6 +36,27 @@ public class Program extends AST{
 		}
 		
 		return text.toString();
+	}
+
+	public ArrayList<Function> getFunctions() {
+		return functions;
+	}
+
+	public void setFunctions(ArrayList<Function> functions) {
+		this.functions = functions;
+	}
+
+	public ArrayList<Variable> getGlobals() {
+		return globals;
+	}
+
+	public void setGlobals(ArrayList<Variable> globals) {
+		this.globals = globals;
+	}
+
+	
+	public Object visit(Visitor vi, ArrayList<AST> list) throws SemanticException{
+		return vi.visitProgram(this,list);
 	}
 	
 }

@@ -6,7 +6,7 @@ public class Continue extends Command{
 		
 		StringBuffer continueC = new StringBuffer();
 		
-		continueC.append("continue;");
+		continueC.append("\tcontinue;");
 		
 		return continueC.toString();
 	}

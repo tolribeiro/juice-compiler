@@ -1,5 +1,6 @@
 package util.AST;
 
+
 /**
  * AST class
  * @version 2010-september-04
@@ -19,5 +20,6 @@ public abstract class AST {
 	}
 	
 	public abstract String toString(int level);
+
 	
 }

@@ -20,8 +20,21 @@ public class FunctionCall extends Command {
 
 	@Override
 	public String toString(int level) {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuffer func = new StringBuffer();
+		
+		func.append("\t");
+		func.append(id.toString());
+		func.append("(");
+		
+		for (int i = 0; i < parameters.size(); i++) {
+			func.append(parameters.get(i).toString(0));
+			if (i+1 != parameters.size()) func.append(",");
+		}
+		
+		func.append(")");
+		func.append(";");
+		
+		return func.toString();
 	}
 
 }

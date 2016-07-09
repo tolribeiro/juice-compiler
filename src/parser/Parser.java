@@ -2,6 +2,7 @@ package parser;
 
 import java.util.ArrayList;
 
+import checker.Checker;
 import compiler.Properties;
 import scanner.Scanner;
 import scanner.Token;
@@ -179,10 +180,15 @@ public class Parser {
 					accept(GrammarSymbols.SC);
 				} else {
 					arguments = new ArrayList<AST>();
+					accept(GrammarSymbols.OP);
 					arguments.add(parseExpression());
 					while (currentToken.getKind() == GrammarSymbols.C) {
+						acceptIt();
 						arguments.add(parseExpression());
 					}
+					acceptIt();
+//					accept(GrammarSymbols.CP);
+					accept(GrammarSymbols.SC);
 				}
 				return new FunctionCall(id, arguments);
 			} else {
@@ -192,7 +198,7 @@ public class Parser {
 				arguments.add(parseExpression());
 				accept(GrammarSymbols.CP);
 				accept(GrammarSymbols.SC);
-				return new FunctionCall("print", arguments);
+				return new FunctionCall("printf", arguments);
 			}
 		} else if (currentToken.getKind() == GrammarSymbols.INT
 				|| currentToken.getKind() == GrammarSymbols.BOOL) {
