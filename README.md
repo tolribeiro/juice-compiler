@@ -4,9 +4,5 @@ The Juice project is a tweaked version of a compiler for the C language in Java.
 ## Part 1
 The first part of the project for this compiler, consists of subparts that are: *LL(1) grammar*, *lexical analyzer*, *syntatic analyzer**
 ### Step 1.1: LL(1) Grammar
-This grammar has to support the following:
-1. 
-2.
-3.
 ### Step 1.2: Lexical analyzer
 ### Step 1.3: Syntatic analyzer
